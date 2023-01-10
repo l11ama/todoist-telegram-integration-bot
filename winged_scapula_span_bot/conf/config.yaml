@@ -1,0 +1,4 @@
+tg:
+  token: <tg-bot-token>
+todoist:
+  token: <todoist-token>
