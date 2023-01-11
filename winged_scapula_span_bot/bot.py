@@ -42,7 +42,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         text += update.message.caption or ""
         task_name = text.split('\n')[0][:100]
 
-        text_md = update.message.text_markdown_urled or ""
+        text_md = update.message.text_markdown_v2_urled or ""
         text_md += update.message.caption_markdown_v2_urled or ""
 
         task = await api.add_task(
