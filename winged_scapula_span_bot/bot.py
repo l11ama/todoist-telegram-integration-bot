@@ -9,6 +9,7 @@ from telegram import ForceReply, Update
 from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
 from todoist_api_python.api_async import TodoistAPIAsync
 
+from winged_scapula_span_bot.filters import IS_MESSAGE_WITH_TEXT
 from winged_scapula_span_bot.helper.todoist import upload_image
 
 # Enable logging
@@ -100,7 +101,7 @@ def main(cfg: DictConfig) -> None:
     application.add_handler(CommandHandler("help", help_command))
 
     # on non command i.e message - echo the message on Telegram
-    msg_handler = MessageHandler(~filters.COMMAND, echo)
+    msg_handler = MessageHandler(~filters.COMMAND & IS_MESSAGE_WITH_TEXT, echo)
     application.add_handler(msg_handler)
 
     # Run the bot until the user presses Ctrl-C
