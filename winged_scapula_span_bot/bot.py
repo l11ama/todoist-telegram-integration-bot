@@ -1,4 +1,3 @@
-#!/home/lama/miniconda3/envs/tg_bot/bin/python
 import logging
 
 import httpx
@@ -88,7 +87,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text(repr(error))
 
 
-@hydra.main(version_base=None, config_path="conf", config_name="config")
+@hydra.main(version_base=hydra.__version__, config_path="../conf", config_name="config")
 def main(cfg: DictConfig) -> None:
     """Start the bot."""
     # Create the Application and pass it your bot"s token.
@@ -100,13 +99,9 @@ def main(cfg: DictConfig) -> None:
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
 
-    # on non command i.e message - echo the message on Telegram
+    # on non command i.e. message - echo the message on Telegram
     msg_handler = MessageHandler(~filters.COMMAND & IS_MESSAGE_WITH_TEXT, echo)
     application.add_handler(msg_handler)
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling()
-
-
-if __name__ == "__main__":
-    main()
